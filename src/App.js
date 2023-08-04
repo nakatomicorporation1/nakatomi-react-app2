@@ -5,8 +5,11 @@ import { useState } from "react";
 import {
   withAuthenticator,
   Button,
+  Flex,
   Heading,
   Image,
+  Text,
+  TextField,
   View,
   Card,
 } from "@aws-amplify/ui-react";
