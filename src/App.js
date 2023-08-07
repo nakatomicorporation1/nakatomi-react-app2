@@ -1,7 +1,5 @@
-import "./App.css";
-import "@aws-amplify/ui-react/styles.css";
-import { Storage } from "aws-amplify";
-import { useState } from "react";
+import React, { useState } from 'react';
+import { Storage } from 'aws-amplify';
 import {
   withAuthenticator,
   Button,
@@ -13,67 +11,74 @@ import {
   View,
   Card,
 } from "@aws-amplify/ui-react";
+// ... other imports
+
 function App({ signOut }) {
-  const [fileData, setFileData] = useState([]);
-  const [fileStatus, setFileStatus] = useState(false);
-  const onChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    setFileData(selectedFiles);
-  };
+  const [filesData, setFilesData] = useState([]);
+  const [uploadStatuses, setUploadStatuses] = useState({});
+
   const uploadFiles = async () => {
-    if (fileData.length === 0) {
-      alert("Please select files before uploading");
+    if (!filesData.length) {
+      alert('Please select files before uploading');
       return;
     }
-    const allowedFileTypes = ["text/csv"];
-    const uploadPromises = fileData.map(async (file) => {
-      if (!allowedFileTypes.includes(file.type)) {
-        alert("Only CSV files are allowed");
+
+    for (let file of filesData) {
+      if (file.type !== 'text/csv') {
+        alert(`Only CSV files are allowed. ${file.name} is not a CSV file.`);
         return;
       }
+
       try {
-        const result = await Storage.put(file.name, file, {
+        await Storage.put(file.name, file, {
           contentType: file.type,
         });
-        console.log("File uploaded successfully:", result);
+        setUploadStatuses(prevState => ({
+          ...prevState,
+          [file.name]: 'Successfully uploaded'
+        }));
       } catch (error) {
-        console.error("File upload error", error);
+        console.error('File upload error for', file.name, error);
+        setUploadStatuses(prevState => ({
+          ...prevState,
+          [file.name]: 'Failed to upload'
+        }));
       }
-    });
-    try {
-      await Promise.all(uploadPromises);
-      setFileStatus(true);
-    } catch (error) {
-      console.error("Error while uploading files:", error);
     }
-  };
+  }
+
+  const handleFileChange = (e) => {
+    setFilesData([...e.target.files]);
+    setUploadStatuses({});
+  }
+
   return (
-    <View className="App">
+    <div className="App">
       <header>
         <h1>Welcome to Nakatomi Corporation!</h1>
       </header>
-      <Card>
-        {/* <Image src={logo} className="App-logo" alt="logo" /> */}
-        {/* <Heading level={1}>We now have Auth!</Heading> */}
-      </Card>
       <div>
-        <Button id="signOut" onClick={signOut}>
-          Sign Out
-        </Button>
+        <Button id="signOut" onClick={signOut}>Sign Out</Button>
       </div>
       <main>
         <h2>Upload CSV files here</h2>
         <input
           type="file"
-          hidden
           multiple
           accept=".csv"
-          onChange={onChange}
+          onChange={handleFileChange}
         />
+        <ul>
+          {filesData.map((file, index) => (
+            <li key={index}>
+              {file.name} - {uploadStatuses[file.name] || 'Pending'}
+            </li>
+          ))}
+        </ul>
         <button onClick={uploadFiles}>Upload files</button>
-        {fileStatus ? "Files uploaded successfully" : ""}
       </main>
-    </View>
+    </div>
   );
 }
+
 export default withAuthenticator(App);
