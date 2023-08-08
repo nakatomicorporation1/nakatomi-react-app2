@@ -1,3 +1,5 @@
+import './App.css';
+import "@aws-amplify/ui-react/styles.css";
 import React, { useState } from 'react';
 import { Storage } from 'aws-amplify';
 import {
@@ -53,7 +55,7 @@ function App({ signOut }) {
   }
 
   return (
-    <div className="App">
+    <View className="App">
       <header>
         <h1>Welcome to Nakatomi Corporation!</h1>
       </header>
@@ -64,6 +66,8 @@ function App({ signOut }) {
         <h2>Upload CSV files here</h2>
         <input
           type="file"
+          id="myFile"
+          name="filename"
           multiple
           accept=".csv"
           onChange={handleFileChange}
@@ -77,7 +81,7 @@ function App({ signOut }) {
         </ul>
         <button onClick={uploadFiles}>Upload files</button>
       </main>
-    </div>
+    </View>
   );
 }
 
