@@ -42,7 +42,7 @@ function App({ signOut }) {
       }
 
       try {
-        const user = getCurrentUser();
+        const user = await getCurrentUser();
         console.log('User:', user);
         const s3Key = `${user.username}/${file.name}`;
         
