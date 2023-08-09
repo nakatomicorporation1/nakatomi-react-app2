@@ -1,7 +1,7 @@
 import './App.css';
 import "@aws-amplify/ui-react/styles.css";
 import React, { useState } from 'react';
-import { Storage, Auth } from 'aws-amplify';
+import { Storage } from 'aws-amplify';
 import {
   withAuthenticator,
   Button,
