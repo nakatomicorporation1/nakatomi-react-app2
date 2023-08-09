@@ -6,17 +6,76 @@ body {
     margin: 0;
 }
 
+a:visited{
+    color:white;
+    font-weight: bolder;
+}
+
+a {
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 .nav {
-    background-color: #333;
+    background-color: #047d95;
     color: white;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 2rem;
     padding: 0 1rem;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 #signOut {
     background-color: white;
     color: #333;
+}
+
+section {
+    display: flex;
+    margin: auto;
+    width: 50%;
+    justify-content: center;
+    /* align-items: center;; */
+    border: 3px solid rgb(88, 84, 84);
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+/* section > {
+    margin: auto;
+} */
+
+table {
+    /* margin: auto; */
+    table-layout: auto;
+    width: 120%;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th, tr {
+    padding-left: 2px;
+    padding-right: 2px;
+    border-bottom: 1px solid black;
+    /* border-right: 1px solid black;
+    border-left: 1px solid black; */
+}
+
+#upload-btn {
+    position: relative;
+    display: inline-block;
+    background-color: #6c6970;
+    padding: 10px;
+    width: 120px;
+    color: #ffffff;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer; /* add this line */
+    margin: 5px; /* add this line */
 }
