@@ -2,6 +2,7 @@ import './App.css';
 import "@aws-amplify/ui-react/styles.css";
 import React, { useState } from 'react';
 import { Storage, Auth } from 'aws-amplify';
+// import Navbar from "./Navbar";
 import {
   withAuthenticator,
   Button,
@@ -70,12 +71,21 @@ function App({ signOut }) {
 
   return (
     <View className="App">
+      <nav className="nav">
+        <a href="/" className="site-title">Nakatomi Corporation</a>
+        <ul>
+            <li>
+                <Button id="signOut" onClick={signOut}>Sign Out</Button>
+            </li>
+        </ul>
+      </nav>
       <header>
-        <h1>Welcome to Nakatomi Corporation!</h1>
+        <h1>Nakatomi Upload Center</h1>
+        <p>Upload any csv file(s) to S3.</p>
       </header>
-      <div>
+      {/* <div>
         <Button id="signOut" onClick={signOut}>Sign Out</Button>
-      </div>
+      </div> */}
       <main>
         <h2>Upload CSV files here</h2>
         <input
