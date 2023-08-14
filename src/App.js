@@ -31,13 +31,13 @@ function App({ signOut }) {
   
   const uploadFiles = async () => {
     if (!filesData.length) {
-      alert('Please select files before uploading');
+      alert('No files were selected. Please select files before uploading');
       return;
     }
 
     for (let file of filesData) {
       if (file.type !== 'text/csv') {
-        alert(`Only CSV files are allowed. ${file.name} is not a CSV file.`);
+        alert(`${file.name} is not a CSV file. Please upload CSV files only`);
         return;
       }
 
